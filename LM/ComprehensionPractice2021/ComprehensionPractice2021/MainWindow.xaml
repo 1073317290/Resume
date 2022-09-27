@@ -1,0 +1,1160 @@
+﻿<Window x:Class="ComprehensionPractice2021.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ComprehensionPractice2021"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="900" Margin="5" WindowStyle="None" Background="AliceBlue" MinWidth="900" MinHeight="450" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Icon="/bitbug_favicon.ico" KeyDown="Window_KeyDown">
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" SnapsToDevicePixels="true" StrokeThickness="1" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="styleDataGridViewCell" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        <Border x:Name="styleDataGridViewCellBorder" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSelected}" Value="true">
+                                <Setter TargetName="styleDataGridViewCellBorder" Property="Background" Value="#CC119EDA"/>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="FocusVisual1">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" SnapsToDevicePixels="true" StrokeThickness="1" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background1" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border1" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background1" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border1" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background1" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border1" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background1" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border1" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground1" Color="#FF838383"/>
+        <Style x:Key="ToggleButtonStyle1" TargetType="{x:Type ToggleButton}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual1}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background1}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border1}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="true">
+                            <TextBlock x:Name="ico" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Storyboard x:Key="Borrow">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Borrow_Bor" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.333333" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Borrow_Ret" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.333333" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.666666" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Borrow_Han" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.666666" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.6670000" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Books" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="50"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="User" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="50"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Books" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="User" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Books_Add" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Books_Rev" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Books_Del" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="User_Add" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="User_Que" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Borrow_Bor" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.3330000" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Borrow_Ret" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.3330000" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.6670000" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Borrow_Han" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.6670000" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Books">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Books_Add" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.33333" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Books_Rev" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.33333" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.66666" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Books_Del" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.66666" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="User" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="50"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Books" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0.000001"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Borrow_Bor" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Borrow_Ret" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Borrow_Han" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="User_Add" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="User_Que" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Books_Rev" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.3330000" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Books_Del" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.6670000" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="00:00:01" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Books_Add" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.3330000" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="User">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="User_Add" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="User_Add" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.5000000" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="User_Que" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.5000000" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="User_Que" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00.5000000" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="User" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1E-05"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Books" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1E-05"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Borrow_Bor" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1E-07"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Borrow_Ret" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1E-07"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Borrow_Han" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1E-07"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Books_Add" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1E-07"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Books_Rev" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1E-07"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Books_Del" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1E-07"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="PutAway">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Books" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1E-06"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="User" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1E-06"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Borrow_Bor" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Borrow_Ret" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Borrow_Han" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Books_Add" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Books_Rev" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Books_Del" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="User_Add" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="User_Que" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="50" x:Name="windowChrome" CornerRadius="5" GlassFrameThickness="0"/>
+    </WindowChrome.WindowChrome>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Background="#24262F">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Background="#3A3D49" Height="50">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image x:Name="___Image__" Source="/住宅小区.png" Margin="0,0,10,0"/>
+                    <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFF64343" FontSize="20" Margin="0,0,5,0"/>
+                    <TextBlock Grid.Column="1" Text="智慧图管" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFF64343" FontSize="20"/>
+                </Grid>
+            </Grid>
+            <Button x:Name="FirstPage" Content="首  页" HorizontalAlignment="Center" Margin="0,5,0,0" Grid.Row="1" VerticalAlignment="Top" Height="35" Width="80" Background="#00FFFDFD" Foreground="#FFFAF9F9" BorderBrush="#00707070" FontSize="18" Click="FirstPage_Click"/>
+            <Button x:Name="Query" Content="查  询" HorizontalAlignment="Center" Margin="0,40,0,0" Grid.Row="1" VerticalAlignment="Top" Height="35" Width="80" Background="#00FFFDFD" Foreground="#FFFAF9F9" BorderBrush="#00707070" FontSize="18" Click="Query_Click"/>
+            <Button x:Name="Borrow" Content="借  阅" HorizontalAlignment="Center" Margin="0,75,0,0" Grid.Row="1" VerticalAlignment="Top" Height="35" Width="80" Background="#00FFFDFD" Foreground="#FFFAF9F9" BorderBrush="#00707070" FontSize="18" Click="Borrow_Click"/>
+            <Button x:Name="Borrow_Bor" Content="借阅图书" Grid.Row="1" VerticalAlignment="Top" Height="25" Background="#00FFFDFD" Foreground="#FFFAF9F9" BorderBrush="#00707070" Margin="71,100,71,0" Opacity="0" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" Click="Borrow_Bor_Click">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+            <Button x:Name="Borrow_Ret" Content="图书归还" Grid.Row="1" VerticalAlignment="Top" Height="25" Background="#00FFFDFD" Foreground="#FFFAF9F9" BorderBrush="#00707070" Margin="71,120,71,0" Opacity="0" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" Click="Borrow_Ret_Click">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+            <Button x:Name="Borrow_Han" Content="办理证书" Grid.Row="1" VerticalAlignment="Top" Height="25" Background="#00FFFDFD" Foreground="#FFFAF9F9" BorderBrush="#00707070" Margin="71,140,71,0" Opacity="0" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" Click="Borrow_Han_Click">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+            <Button x:Name="Books" Content="图  书" HorizontalAlignment="Center" Margin="0,110,0,0" Grid.Row="1" VerticalAlignment="Top" Height="35" Width="80" Background="#00FFFDFD" Foreground="#FFFAF9F9" BorderBrush="#00707070" FontSize="18" RenderTransformOrigin="0.5,0.5" Click="Books_Click">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+            <Button x:Name="Books_Add" Content="添加信息" Grid.Row="1" VerticalAlignment="Top" Height="25" Background="#00FFFDFD" Foreground="#FFFAF9F9" BorderBrush="#00707070" Margin="71,135,71,0" Opacity="0" Visibility="Hidden" Click="Books_Add_Click" RenderTransformOrigin="0.5,0.5">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+                <Button.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.LayoutTransform>
+            </Button>
+            <Button x:Name="Books_Rev" Content="修改信息" Grid.Row="1" VerticalAlignment="Top" Height="25" Background="#00FFFDFD" Foreground="#FFFAF9F9" BorderBrush="#00707070" Margin="71,155,71,0" Opacity="0" Visibility="Hidden" Click="Books_Rev_Click" RenderTransformOrigin="0.5,0.5">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+                <Button.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.LayoutTransform>
+            </Button>
+            <Button x:Name="Books_Del" Content="删除信息" Grid.Row="1" VerticalAlignment="Top" Height="25" Background="#00FFFDFD" Foreground="#FFFAF9F9" BorderBrush="#00707070" Margin="71,175,71,0" Opacity="0" Visibility="Hidden" Click="Books_Del_Click" RenderTransformOrigin="0.5,0.5">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+                <Button.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.LayoutTransform>
+            </Button>
+            <Button x:Name="User" Content="用  户" HorizontalAlignment="Center" Margin="0,145,0,0" Grid.Row="1" VerticalAlignment="Top" Height="35" Width="80" Background="#00FFFDFD" Foreground="#FFFAF9F9" BorderBrush="#00707070" FontSize="18" RenderTransformOrigin="0.5,0.5" Click="User_Click">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+            <Button x:Name="User_Add" Content="添加用户" Grid.Row="1" VerticalAlignment="Top" Height="25" Background="#00FFFDFD" Foreground="#FFFAF9F9" BorderBrush="#00707070" Margin="71,170,71,0" Opacity="0" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" Click="User_Add_Click">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+                <Button.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.LayoutTransform>
+            </Button>
+            <Button x:Name="User_Que" Content="查询用户" Grid.Row="1" VerticalAlignment="Top" Height="25" Background="#00FFFDFD" Foreground="#FFFAF9F9" BorderBrush="#00707070" Margin="71,190,71,0" Opacity="0" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" Click="User_Que_Click">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+                <Button.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.LayoutTransform>
+            </Button>
+            <Button x:Name="Account" Content="账  户" Grid.Row="1" VerticalAlignment="Bottom" Height="34" Width="80" Background="#00FFFDFD" Foreground="#FFFAF9F9" BorderBrush="#00707070" FontSize="18" Margin="60,0,60,5" Click="Account_Click"/>
+
+        </Grid>
+        <Grid Background="White" Height="50" Grid.Column="1" Margin="0,0,0,400" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <ToggleButton Content="◀" Style="{DynamicResource ToggleButtonStyle1}" WindowChrome.IsHitTestVisibleInChrome="True" Width="50" HorizontalAlignment="Left" Background="#00DDDDDD" FontSize="22"/>
+            <Grid Grid.Column="1" HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Button Style="{DynamicResource ButtonStyle1}" WindowChrome.IsHitTestVisibleInChrome="True" Grid.Column="1" Width="50" Content="─" Background="Transparent" x:Name="minBtn" Click="minBtn_Click" FontSize="18" MouseEnter="minBtn_MouseEnter" MouseLeave="minBtn_MouseLeave"/>
+                <Button Style="{DynamicResource ButtonStyle1}" WindowChrome.IsHitTestVisibleInChrome="True" Grid.Column="2" Width="50" Content="🗖" Background="Transparent" x:Name="changeBtn" Click="changeBtn_Click" FontWeight="Normal" FontSize="18" MouseEnter="changeBtn_MouseEnter" MouseLeave="changeBtn_MouseLeave" RenderTransformOrigin="0.5,0.5">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform Y="-2"/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
+                <Button Style="{DynamicResource ButtonStyle1}" WindowChrome.IsHitTestVisibleInChrome="True" Grid.Column="3" Width="50" Content="╳" Background="Transparent" x:Name="closeBtn" Click="closeBtn_Click" FontSize="20" MouseEnter="closeBtn_MouseEnter" MouseLeave="closeBtn_MouseLeave"/>
+                <Border CornerRadius="20" Height="40" Background="#FFEDEDED" Padding="0,0,30,0" Cursor="Hand" WindowChrome.IsHitTestVisibleInChrome="True" MouseDown="Border_MouseDown" Margin="0,5,0,5" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                    <Grid Margin="0,0,-20,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="70"/>
+                        </Grid.ColumnDefinitions>
+                        <Border CornerRadius="20" Width="40" Background="#FFB6B6B6">
+                            <TextBlock x:Name="LoginPic" Text="☃" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
+                        </Border>
+                        <TextBlock x:Name="LoginTbk" Grid.Column="1" Text="游客" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Height="20" Width="54" Margin="13,0,0,0"/>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+        <Image x:Name="HomePage" Grid.Column="1" Margin="0,50,-4,0" Source="/cat.jpg" Stretch="Fill" d:IsHidden="True"/>
+        <Label x:Name="Query_Tittle_Lab" Content="书名:" Grid.Column="1" HorizontalAlignment="Left" Margin="51,72,0,0" VerticalAlignment="Top" FontSize="16" Width="45" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Query_Tittle_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="95,77,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="30" d:IsHidden="True" />
+        <Label x:Name="Query_Tittle_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="92,95,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Query_Author_Lab" Content="作者:" Grid.Column="1" HorizontalAlignment="Left" Margin="315,72,0,0" VerticalAlignment="Top" FontSize="16" Width="45" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Query_Author_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="359,77,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="20" d:IsHidden="True" />
+        <Label x:Name="Query_Author_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="356,95,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Query_Publisher_Lab" Content="出版社:" Grid.Column="1" HorizontalAlignment="Left" Margin="34,122,0,0" VerticalAlignment="Top" FontSize="16" Width="62" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Query_Publisher_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="95,127,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="10" d:IsHidden="True" />
+        <Label x:Name="Query_Publisher_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="92,145,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Query_ISBN_Lab" Content="ISBN:" Grid.Column="1" HorizontalAlignment="Left" Margin="307,122,0,0" VerticalAlignment="Top" FontSize="16" Width="53" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Query_ISBN_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="359,127,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="10" d:IsHidden="True" />
+        <Label x:Name="Query_ISBN_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="356,145,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Button x:Name="Query_Query_Btn" Grid.Column="1" Content="查询" Margin="594,94,0,0" FontWeight="Bold" FontSize="16" Click="Query_Query_Btn_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Width="72" Height="30" d:IsHidden="True" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>
+                            <Brush>#FFDDDDDD</Brush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <DataGrid x:Name="Query_Show_Dtg" Grid.Column="1" Margin="0,157,0,0" BorderThickness="0,0,0,0" CellStyle="{StaticResource styleDataGridViewCell}" IsReadOnly="True" d:IsHidden="True"/>
+        <Label x:Name="Borrow_Bor_ISBN_Lab" Content="ISBN号:" Grid.Column="1" HorizontalAlignment="Left" Margin="47,127,0,0" VerticalAlignment="Top" FontSize="16" Width="67" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Borrow_Bor_ISBN_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="113,132,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="10" TextChanged="Borrow_Bor_ISBN_Tbx_TextChanged" d:IsHidden="True" />
+        <Label x:Name="Borrow_Bor_ISBN_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="110,149,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Borrow_Bor_ID_Lab" Content="借阅证号:" Grid.Column="1" HorizontalAlignment="Left" Margin="37,204,0,0" VerticalAlignment="Top" FontSize="16" Width="76" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Borrow_Bor_ID_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="113,212,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="8" TextChanged="Borrow_Bor_ID_Tbx_TextChanged" d:IsHidden="True" />
+        <Label x:Name="Borrow_Bor_ID_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="110,229,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <RichTextBox x:Name="Borrow_Bor_Message_RTbx" Grid.Column="1" Margin="373,123,71,77" BorderThickness="0,0,0,0" TabIndex="105" FontSize="16" IsReadOnly="True" d:IsHidden="True">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text=""/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <Label x:Name="Borrow_Bor_Message_Lab" Content="书籍信息:" Grid.Column="1" HorizontalAlignment="Left" Margin="368,88,0,0" VerticalAlignment="Top" FontSize="16" Width="76" Height="30" d:IsHidden="True"/>
+        <Label x:Name="Borrow_Bor_Name_Lab" Content="姓名:" Grid.Column="1" HorizontalAlignment="Left" Margin="69,287,0,0" VerticalAlignment="Top" FontSize="16" Width="67" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Borrow_Bor_Name_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="113,292,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="15" IsReadOnly="True" d:IsHidden="True" />
+        <Label x:Name="Borrow_Bor_Name_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="110,309,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Button x:Name="Borrow_Bor_Det_Btn" Grid.Column="1" Content="确定" Margin="0,0,174,32" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="72" Height="30" Click="Borrow_Bor_Det_Btn_Click" d:IsHidden="True" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>
+                            <Brush>#FFDDDDDD</Brush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button x:Name="Borrow_Bor_Can_Btn" Grid.Column="1" Content="取消" Margin="0,0,82,32" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="72" Height="30" Click="Borrow_Bor_Can_Btn_Click" d:IsHidden="True" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>
+                            <Brush>#FFDDDDDD</Brush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Label x:Name="Borrow_Ret_ID_Lab" Content="借阅证号:" Grid.Column="1" HorizontalAlignment="Left" Margin="55,78,0,0" VerticalAlignment="Top" FontSize="16" Width="76" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Borrow_Ret_ID_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="130,82,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="22" MaxLines="1" MaxLength="8" d:IsHidden="True" />
+        <Label x:Name="Borrow_Ret_ID_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="127,99,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Button x:Name="Borrow_Ret_Query_Btn" Grid.Column="1" Content="查询" Margin="438,78,0,0" FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Width="72" Height="30" Click="Borrow_Ret_Query_Btn_Click" d:IsHidden="True" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>
+                            <Brush>#FFDDDDDD</Brush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <DataGrid x:Name="Borrow_Ret_Message_Dtg" Grid.Column="1" Margin="0,127,-5,-9" BorderThickness="0,0,0,0" IsReadOnly="True" CanUserAddRows="False" CanUserResizeRows="False" CellStyle="{StaticResource styleDataGridViewCell}" MouseDoubleClick="Borrow_Ret_Message_Dtg_MouseDoubleClick" d:IsHidden="True"/>
+        <Label x:Name="Borrow_Han_ID_Lab" Content="学号:" Grid.Column="1" HorizontalAlignment="Left" Margin="207,183,0,0" VerticalAlignment="Top" FontSize="16" Width="57" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Borrow_Han_ID_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="260,187,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="188" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="22" MaxLines="1" MaxLength="8" d:IsHidden="True" />
+        <Label x:Name="Borrow_Han_ID_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="261,204,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="186" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Borrow_Han_Name_Lab" Content="姓名:" Grid.Column="1" HorizontalAlignment="Left" Margin="207,233,0,0" VerticalAlignment="Top" FontSize="16" Width="57" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Borrow_Han_Name_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="262,237,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="180" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="22" MaxLines="1" MaxLength="10" d:IsHidden="True" />
+        <Label x:Name="Borrow_Han_Name_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="260,254,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="188" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Button x:Name="Borrow_Han_Det_Btn" Grid.Column="1" Content="确定" Margin="0,0,148,30" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="72" Height="30" Click="Borrow_Han_Det_Btn_Click" d:IsHidden="True" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>
+                            <Brush>#FFDDDDDD</Brush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button x:Name="Borrow_Han_Can_Btn" Grid.Column="1" Content="取消" Margin="0,0,56,30" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="72" Height="30" Click="Borrow_Han_Can_Btn_Click" d:IsHidden="True" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>
+                            <Brush>#FFDDDDDD</Brush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <TextBlock x:Name="Borrow_Han_Import_Tbk" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,15" Text="点击进行批量导入" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="14" FontStyle="Italic" TextDecorations="Underline" Foreground="#FF0036FF" MouseLeftButtonDown="Borrow_Han_Import_Tbk_MouseLeftButtonDown" d:IsHidden="True"/>
+        <Label x:Name="Books_Add_Isbn_Lab" Content="ISBN:" Grid.Column="1" HorizontalAlignment="Left" Margin="61,106,0,0" VerticalAlignment="Top" FontSize="16" Width="53" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Books_Add_Isbn_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="113,111,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="10" TabIndex="1" d:IsHidden="True" />
+        <Label x:Name="Books_Add_Isbn_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="110,129,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Books_Add_Tittle_Lab" Content="书名:" Grid.Column="1" HorizontalAlignment="Left" Margin="361,106,0,0" VerticalAlignment="Top" FontSize="16" Width="53" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Books_Add_Tattle_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="413,111,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="30" TabIndex="2" d:IsHidden="True" />
+        <Label x:Name="Books_Add_Tattle_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="410,129,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Books_Add_Publisher_Lab" Content="出版社:" Grid.Column="1" HorizontalAlignment="Left" Margin="348,166,0,0" VerticalAlignment="Top" FontSize="16" Width="66" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Books_Add_Publisher_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="413,171,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="20" TabIndex="4" d:IsHidden="True" />
+        <Label x:Name="Books_Add_Publisher_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="410,189,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Books_Add_Author_Lab" Content="作者:" Grid.Column="1" HorizontalAlignment="Left" Margin="61,166,0,0" VerticalAlignment="Top" FontSize="16" Width="53" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Books_Add_Author_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="113,171,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="21" TabIndex="3" d:IsHidden="True" />
+        <Label x:Name="Books_Add_Author_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="110,189,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Books_Add_Stock_Lab" Content="库存:" Grid.Column="1" HorizontalAlignment="Left" Margin="61,226,0,0" VerticalAlignment="Top" FontSize="16" Width="53" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Books_Add_Stock_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="113,231,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="3" TabIndex="5" d:IsHidden="True" />
+        <Label x:Name="Books_Add_Stock_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="110,249,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Books_Add_Year_Lab" Content="出版年份:" Grid.Column="1" HorizontalAlignment="Left" Margin="332,226,0,0" VerticalAlignment="Top" FontSize="16" Width="82" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Books_Add_Year_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="413,231,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="4" TabIndex="6" d:IsHidden="True" />
+        <Label x:Name="Books_Add_Year_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="410,249,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Books_Add_Location_Lab" Content="图书位置:" Grid.Column="1" HorizontalAlignment="Left" Margin="332,286,0,0" VerticalAlignment="Top" FontSize="16" Width="82" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Books_Add_Location_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="413,291,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="10" TabIndex="8" d:IsHidden="True" />
+        <Label x:Name="Books_Add_Location_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="410,309,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Books_Add_Price_Lab" Content="图书单价:" Grid.Column="1" HorizontalAlignment="Left" Margin="32,286,0,0" VerticalAlignment="Top" FontSize="16" Width="82" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Books_Add_Price_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="113,291,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="6" TabIndex="7" d:IsHidden="True" />
+        <Label x:Name="Books_Add_Price_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="110,309,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Button x:Name="Books_Add_Det_Btn" Grid.Column="1" Content="确定" Margin="0,0,148,30" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="72" Height="30" Click="Books_Add_Det_Btn_Click" d:IsHidden="True" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>
+                            <Brush>#FFDDDDDD</Brush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button x:Name="Books_Add_Can_Btn" Grid.Column="1" Content="取消" Margin="0,0,56,30" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="72" Height="30" Click="Books_Add_Can_Btn_Click" d:IsHidden="True" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>
+                            <Brush>#FFDDDDDD</Brush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <TextBlock x:Name="Books_Add_Import_Tbk" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,15" Text="点击进行批量导入" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="14" FontStyle="Italic" TextDecorations="Underline" Foreground="#FF0036FF" MouseDown="Books_Add_Import_Tbk_MouseDown" d:IsHidden="True"/>
+        <Label x:Name="Books_Dev_Isbn_Lab" Content="ISBN:" Grid.Column="1" HorizontalAlignment="Left" Margin="61,106,0,0" VerticalAlignment="Top" FontSize="16" Width="53" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Books_Dev_Isbn_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="113,111,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="10" TextChanged="Books_Dev_Isbn_Tbx_TextChanged" d:IsHidden="True" />
+        <Label x:Name="Books_Dev_Isbn_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="110,129,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Books_Dev_Tittle_Lab" Content="书名:" Grid.Column="1" HorizontalAlignment="Left" Margin="361,106,0,0" VerticalAlignment="Top" FontSize="16" Width="53" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Books_Dev_Tattle_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="413,111,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="30" d:IsHidden="True" />
+        <Label x:Name="Books_Dev_Tattle_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="410,129,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Books_Dev_Publisher_Lab" Content="出版社:" Grid.Column="1" HorizontalAlignment="Left" Margin="348,166,0,0" VerticalAlignment="Top" FontSize="16" Width="66" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Books_Dev_Publisher_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="413,171,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="20" d:IsHidden="True" />
+        <Label x:Name="Books_Dev_Publisher_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="410,189,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Books_Dev_Author_Lab" Content="作者:" Grid.Column="1" HorizontalAlignment="Left" Margin="61,166,0,0" VerticalAlignment="Top" FontSize="16" Width="53" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Books_Dev_Author_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="113,171,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="21" d:IsHidden="True" />
+        <Label x:Name="Books_Dev_Author_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="110,189,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Books_Dev_Stock_Lab" Content="库存:" Grid.Column="1" HorizontalAlignment="Left" Margin="61,226,0,0" VerticalAlignment="Top" FontSize="16" Width="53" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Books_Dev_Stock_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="113,231,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="3" d:IsHidden="True" />
+        <Label x:Name="Books_Dev_Stock_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="110,249,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Books_Dev_Year_Lab" Content="出版年份:" Grid.Column="1" HorizontalAlignment="Left" Margin="332,226,0,0" VerticalAlignment="Top" FontSize="16" Width="82" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Books_Dev_Year_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="413,231,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="4" d:IsHidden="True" />
+        <Label x:Name="Books_Dev_Year_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="410,249,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Books_Dev_Location_Lab" Content="图书位置:" Grid.Column="1" HorizontalAlignment="Left" Margin="332,286,0,0" VerticalAlignment="Top" FontSize="16" Width="82" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Books_Dev_Location_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="413,291,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="10" d:IsHidden="True" />
+        <Label x:Name="Books_Dev_Location_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="410,309,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Books_Dev_Price_Lab" Content="图书单价:" Grid.Column="1" HorizontalAlignment="Left" Margin="32,286,0,0" VerticalAlignment="Top" FontSize="16" Width="82" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Books_Dev_Price_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="113,291,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="6" d:IsHidden="True" />
+        <Label x:Name="Books_Dev_Price_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="110,309,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Button x:Name="Books_Dev_Det_Btn" Grid.Column="1" Content="修改" Margin="0,0,148,30" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="72" Height="30" Click="Books_Dev_Det_Btn_Click" d:IsHidden="True" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>
+                            <Brush>#FFDDDDDD</Brush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button x:Name="Books_Dev_Can_Btn" Grid.Column="1" Content="取消" Margin="0,0,56,30" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="72" Height="30" Click="Books_Dev_Can_Btn_Click" d:IsHidden="True" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>
+                            <Brush>#FFDDDDDD</Brush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <DataGrid x:Name="Books_Del_Message_Dtg" Grid.Column="1" Margin="0,100,0,0" CellStyle="{StaticResource styleDataGridViewCell}" IsReadOnly="True" MouseDoubleClick="Books_Del_Message_Dtg_MouseDoubleClick" d:IsHidden="True"/>
+        <Label x:Name="Books_Del_Search_Lab" Content="条件搜索:" Grid.Column="1" HorizontalAlignment="Left" Margin="8,63,0,0" VerticalAlignment="Top" FontSize="16" Width="82" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Books_Del_Search_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="89,68,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="30" d:IsHidden="True" />
+        <Label x:Name="Books_Del_Search_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="86,86,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <RadioButton x:Name="Books_Del_ISBN_Rbtn" Content="按ISBN" Grid.Column="1" HorizontalAlignment="Left" Margin="300,75,0,0" VerticalAlignment="Top" d:IsHidden="True"/>
+        <RadioButton x:Name="Books_Del_Tittle_Rbtn" Content="按书名" Grid.Column="1" HorizontalAlignment="Left" Margin="400,75,0,0" VerticalAlignment="Top" d:IsHidden="True"/>
+        <RadioButton x:Name="Books_Del_Author_Rbtn" Content="按作者" Grid.Column="1" HorizontalAlignment="Left" Margin="500,75,0,0" VerticalAlignment="Top" d:IsHidden="True"/>
+        <Button x:Name="Books_Del_Det_Btn" Grid.Column="1" Content="搜索" Margin="0,0,32,355" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="72" Height="30" Click="Books_Del_Det_Btn_Click" d:IsHidden="True" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>
+                            <Brush>#FFDDDDDD</Brush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Label x:Name="User_Add_Id_Lab" Content="账号:" Grid.Column="1" HorizontalAlignment="Left" Margin="200,152,0,0" VerticalAlignment="Top" FontSize="16" Width="55" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="User_Add_Id_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="254,157,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="8" d:IsHidden="True" />
+        <Label x:Name="User_Add_Id_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="251,175,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="User_Add_Name_Lab" Content="姓名:" Grid.Column="1" HorizontalAlignment="Left" Margin="200,202,0,0" VerticalAlignment="Top" FontSize="16" Width="55" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="User_Add_Name_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="254,207,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="10" d:IsHidden="True" />
+        <Label x:Name="User_Add_Name_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="251,225,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="User_Add_Jur_Lab" Content="权限:" Grid.Column="1" HorizontalAlignment="Left" Margin="202,260,0,0" VerticalAlignment="Top" FontSize="16" Width="56" Height="30" d:IsHidden="True"/>
+        <RadioButton x:Name="User_Add_Jur_Staff_Rbtn" Content="工作人员" Grid.Column="1" HorizontalAlignment="Left" Margin="280,270,0,0" VerticalAlignment="Top" d:IsHidden="True"/>
+        <RadioButton x:Name="User_Add_Jur_Admin_Rbtn" Content="管理员" Grid.Column="1" HorizontalAlignment="Left" Margin="380,270,0,0" VerticalAlignment="Top" d:IsHidden="True"/>
+        <Button x:Name="User_Add_Det_Btn" Grid.Column="1" Content="注册" Margin="0,0,174,32" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="72" Height="30" Click="User_Add_Det_Btn_Click" d:IsHidden="True" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>
+                            <Brush>#FFDDDDDD</Brush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button x:Name="User_Add_Can_Btn" Grid.Column="1" Content="取消" Margin="0,0,82,32" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="72" Height="30" Click="User_Add_Can_Btn_Click" d:IsHidden="True" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>
+                            <Brush>#FFDDDDDD</Brush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <DataGrid x:Name="User_Que_Message_Dtg" Grid.Column="1" Margin="0,100,0,0" CellStyle="{StaticResource styleDataGridViewCell}" IsReadOnly="True" KeyDown="User_Que_Message_Dtg_KeyDown" Focusable="True" MouseDown="User_Que_Message_Dtg_MouseDown" d:IsHidden="True"/>
+        <Label x:Name="User_Que_Search_Lab" Content="条件搜索:" Grid.Column="1" HorizontalAlignment="Left" Margin="8,63,0,0" VerticalAlignment="Top" FontSize="16" Width="82" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="User_Que_Search_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="89,68,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="30" d:IsHidden="True" />
+        <Label x:Name="User_Que_Search_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="86,86,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <RadioButton x:Name="User_Que_Id_Rbtn" Content="按账号" Grid.Column="1" HorizontalAlignment="Left" Margin="350,75,0,0" VerticalAlignment="Top" d:IsHidden="True"/>
+        <RadioButton x:Name="User_Que_Name_Rbtn" Content="按姓名" Grid.Column="1" HorizontalAlignment="Left" Margin="450,75,0,0" VerticalAlignment="Top" d:IsHidden="True"/>
+        <Button x:Name="User_Que_Det_Btn" Grid.Column="1" Content="搜索" Margin="0,0,90,357" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="72" Height="30" Click="User_Que_Det_Btn_Click" d:IsHidden="True" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>
+                            <Brush>#FFDDDDDD</Brush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Label x:Name="Account_Mes_Name_Lab" Content="姓名:" Grid.Column="1" HorizontalAlignment="Left" Margin="207,126,0,0" VerticalAlignment="Top" FontSize="16" Width="46" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Account_Mes_Name_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="253,131,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="30" IsReadOnly="True" d:IsHidden="True" />
+        <Label x:Name="Account_Mes_Name_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="250,149,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Account_Mes_Id_Lab" Content="账号:" Grid.Column="1" HorizontalAlignment="Left" Margin="207,206,0,0" VerticalAlignment="Top" FontSize="16" Width="46" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Account_Mes_Id_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="253,211,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="30" IsReadOnly="True" d:IsHidden="True" />
+        <Label x:Name="Account_Mes_Id_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="250,229,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Account_Mes_Jur_Lab" Content="权限:" Grid.Column="1" HorizontalAlignment="Left" Margin="207,286,0,0" VerticalAlignment="Top" FontSize="16" Width="46" Height="30" d:IsHidden="True"/>
+        <TextBox x:Name="Account_Mes_Jur_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="253,291,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="30" IsReadOnly="True" d:IsHidden="True" />
+        <Label x:Name="Account_Mes_Jur_Udl" Content="_________________________________________________________________________________" Grid.Column="1" HorizontalAlignment="Left" Margin="250,309,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="210" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <TextBlock x:Name="Account_ChangePassword_Tbk" Grid.Column="1" HorizontalAlignment="Left" Margin="20,0,0,15" Text="修改密码" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="14" FontStyle="Italic" TextDecorations="Underline" Foreground="#FF0036FF" MouseLeftButtonDown="Account_ChangePassword_Tbk_MouseLeftButtonDown" d:IsHidden="True"/>
+        <Label x:Name="Account_ChangePassword_Old_Lab" Content="修改密码(〃'▽'〃)" Grid.Column="1" Margin="224,138,333,282" FontSize="16" Width="143" Height="30"/>
+        <TextBox x:Name="Account_ChangePassword_Old_Tbx" Grid.Column="1" Margin="232,180,261,249" TextWrapping="NoWrap" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="18" Foreground="#FFB2B8B8" Text="请输入原密码" GotFocus="Account_ChangePassword_Old_Tbx_GotFocus" LostFocus="Account_ChangePassword_Old_Tbx_LostFocus" />
+        <Label x:Name="Account_ChangePassword_Old_Udl" Content="_________________________________________________________________________________" Grid.Column="1" Margin="224,196,266,227" RenderTransformOrigin="0.5,0.5" Width="210">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Account_ChangePassword_New1_Lab" Content="设置新密码φ(&gt;ω&lt;*) " Grid.Column="1" Margin="224,218,317,202" FontSize="16" Width="159"/>
+        <TextBox x:Name="Account_ChangePassword_New1_Tbx" Grid.Column="1" Margin="231,258,262,168" TextWrapping="NoWrap" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" MaxLines="1" MaxLength="20" Text="请输入新密码" Foreground="#FFB2B8B8" GotFocus="Account_ChangePassword_New1_Tbx_GotFocus" LostFocus="Account_ChangePassword_New1_Tbx_LostFocus" Visibility="Visible" TextChanged="Account_ChangePassword_New1_Tbx_TextChanged"/>
+        <Label x:Name="Account_ChangePassword_New1_Udl" Content="_________________________________________________________________________________" Grid.Column="1" Margin="224,278,266,147" RenderTransformOrigin="0.5,0.5" Width="210">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Button x:Name="Account_ChangePassword_Det_Btn" Grid.Column="1" Content="修改" Margin="0,0,148,30" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="72" Height="30" Click="Account_ChangePassword_Det_Btn_Click" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>
+                            <Brush>#FFDDDDDD</Brush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button x:Name="Account_ChangePassword_Can_Btn" Grid.Column="1" Content="取消" Margin="0,0,56,30" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="72" Height="30" Click="Account_ChangePassword_Can_Btn_Click" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>
+                            <Brush>#FFDDDDDD</Brush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Label x:Name="Account_ChangePassword_Tips1_Lab" Content="✓ 密码由8-16位字符组成" Grid.Column="1" HorizontalAlignment="Left" Margin="229,307,0,0" VerticalAlignment="Top" Foreground="#FFB2B8B8"/>
+        <Label x:Name="Account_ChangePassword_Tips2_Lab" Content="✓ 密码包含两种及以上的字符" Grid.Column="1" HorizontalAlignment="Left" Margin="229,328,0,0" VerticalAlignment="Top" Foreground="#FFB2B8B8"/>
+        <Label x:Name="Login_Id_Lab" Content="账号:" Grid.Column="1" Margin="217,157,437,263" FontSize="16" d:IsHidden="True"/>
+        <TextBox x:Name="Login_Id_Tbx" Grid.Column="1" HorizontalAlignment="Left" Margin="265,160,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="207" FontSize="16" Background="AliceBlue" BorderBrush="{x:Null}" SelectionBrush="Black" BorderThickness="0,0,0,0" Height="21" MaxLines="1" MaxLength="8" d:IsHidden="True" TabIndex="1" />
+        <Label x:Name="Login_Id_Udl" Content="_________________________________________________________________________________" Grid.Column="1" Margin="255,180,235,245" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Login_Pwd_Lab" Content="密码:" Grid.Column="1" Margin="217,237,437,183" FontSize="16" d:IsHidden="True"/>
+        <Label x:Name="Login_Pwd_Udl" Content="_________________________________________________________________________________" Grid.Column="1" Margin="255,260,235,165" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <PasswordBox x:Name="Login_Pwd_Pwbx" Grid.Column="1" Margin="266,241,228,188" TabIndex="2" Background="AliceBlue" BorderBrush="#00000000" SelectionBrush="Black" MaxLength="16" BorderThickness="0,0,0,0" FontSize="16" d:IsHidden="True"/>
+        <Button x:Name="Login_Det_Btn" Grid.Column="1" Content="登录" Margin="296,337,332,0" FontWeight="Bold" FontSize="16" Click="Login_Det_Btn_Click" Height="30" VerticalAlignment="Top" d:IsHidden="True" >
+            <Button.Template >
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7,7,7,7">
+                        <Border.Background>
+                            <Brush>#FFDDDDDD</Brush>
+                        </Border.Background>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+    </Grid>
+</Window>

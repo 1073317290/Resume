@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon />
+    <StartupObject />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="20211210103702.png" />
+    <None Remove="bitbug_favicon.ico" />
+    <None Remove="cat.jpg" />
+    <None Remove="head.jpeg" />
+    <None Remove="住宅小区.png" />
+    <None Remove="口罩.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NPOI" Version="2.5.5" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="20211210103702.png" />
+    <Resource Include="bitbug_favicon.ico" />
+    <Resource Include="cat.jpg" />
+    <Resource Include="head.jpeg" />
+    <Resource Include="住宅小区.png" />
+    <Resource Include="口罩.png" />
+  </ItemGroup>
+
+</Project>
